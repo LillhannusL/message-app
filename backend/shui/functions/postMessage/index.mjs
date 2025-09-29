@@ -26,8 +26,8 @@ export const handler = async (event) => {
 		const command = new PutItemCommand({
 			TableName: 'ShuiDataTable',
 			Item: {
-				pk: { S: `USER#${post.username}` },
-				sk: { S: `NOTE#${id}` },
+				pk: { S: `NOTE#` },
+				sk: { S: String(id) },
 				username: { S: post.username },
 				text: { S: post.text },
 				createdAt: { S: new Date().toISOString() },
