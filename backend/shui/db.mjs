@@ -1,5 +1,5 @@
-import { dynamoDBClient } from '@aws-skd/client-dynamodb';
+import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 
-const client = new dynamoDBClient({ region: 'eu-north-1' });
+const client = new DynamoDBClient({ region: 'eu-north-1' });
 
 export { client };

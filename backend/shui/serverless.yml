@@ -8,7 +8,7 @@ provider:
   runtime: nodejs20.x
   region: eu-north-1
   iam:
-    role:
+    role: arn:aws:iam::329327478854:role/serverless-aws-role
 
 build:
   esbuild:
@@ -22,20 +22,20 @@ functions:
     handler: functions/postMessage/index.handler
     events:
       - httpApi:
-        path: /message
-        method: post
+          path: /message
+          method: post
   updateMessage:
     handler: functions/updateMessage/index.handler
     events:
       - httpApi:
-        path: /message/{id}
-        method: put
+          path: /message/{id}
+          method: put
   getMessages:
     handler: functions/s/index.handler
     events:
       - httpApi:
-        path: /messages
-        method: get
+          path: /messages
+          method: get
 
 resources:
   Resources:
@@ -43,14 +43,14 @@ resources:
       Type: AWS::DynamoDB::Table
       Properties:
         TableName: ShuiDataTable
-        AttributeDefinions:
-        - AttributeName : pk
-          AttributeType: S # S står för String som i datatyp
-        - AttributeName : sk
-          AttributeType: S # S står för String som i datatyp
+        AttributeDefinitions:
+          - AttributeName: pk
+            AttributeType: S # S står för String som i datatyp
+          - AttributeName: sk
+            AttributeType: S # S står för String som i datatyp
         KeySchema:
-        - AttributeName: pk
-          KeyType: HASH # HASH = Partition key
-        - AttributeName: sk
-          KeyType: RANGE # RANGE = Sort Key
+          - AttributeName: pk
+            KeyType: HASH # HASH = Partition key
+          - AttributeName: sk
+            KeyType: RANGE # RANGE = Sort Key
         BillingMode: PAY_PER_REQUEST
