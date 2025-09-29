@@ -31,7 +31,7 @@ functions:
           path: /message/{id}
           method: put
   getMessages:
-    handler: functions/s/index.handler
+    handler: functions/getMessages/index.handler
     events:
       - httpApi:
           path: /messages
