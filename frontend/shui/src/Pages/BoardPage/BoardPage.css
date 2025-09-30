@@ -2,6 +2,7 @@
 	background-color: var(--light-beige);
 	color: var(--dark-grey);
 	margin: 1rem;
+	padding: 1rem 0;
 }
 
 .card-box {
@@ -12,6 +13,9 @@
 	gap: 1rem;
 }
 
-.button {
+.boardPage-button {
+	position: fixed;
+	bottom: 1.6rem;
+	right: 1.6rem;
 	z-index: 10;
 }

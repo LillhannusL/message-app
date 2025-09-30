@@ -1,6 +1,6 @@
 .card {
 	background-color: var(--dark-grey);
-	color: var(--light-pink);
+	color: var(--text-beige);
 	border-radius: 5px;
 	width: 80%;
 	padding: 1rem;

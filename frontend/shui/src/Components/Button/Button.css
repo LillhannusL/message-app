@@ -1,8 +1,8 @@
 .button {
 	background-color: var(--red-orange);
-	color: var(--light-pink);
+	color: var(--text-beige);
 	border-style: none;
-	padding: 1rem;
+	padding: 0.8rem;
 	border-radius: 10px;
 	box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
 }
