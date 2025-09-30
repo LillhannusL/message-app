@@ -1,0 +1,13 @@
+.boardPage {
+	background-color: var(--light-beige);
+	color: var(--dark-grey);
+	margin: 1rem;
+}
+
+.card-box {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
+}
