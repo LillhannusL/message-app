@@ -1,0 +1,68 @@
+.modal-overlay {
+	width: 100%;
+	position: fixed;
+	inset: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 20;
+}
+
+.modal-content {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 90%;
+	height: 90%;
+	background-color: rgba(47, 46, 45, 0.9);
+	border-radius: 10px;
+	position: relative;
+}
+
+.modal-form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
+}
+
+.modal-input {
+	width: 100%;
+	height: 200px;
+	border: 2px solid var(--red-orange);
+	border-radius: 7px;
+	padding: 0.5rem;
+	font-size: 1rem;
+	outline: none;
+	background-color: var(--light-beige);
+	color: var(--dark-grey);
+	font-family: 'Onest', sans-serif;
+}
+
+.modal-username {
+	border: 2px solid var(--red-orange);
+	border-radius: 7px;
+	padding: 0.5rem;
+	font-size: 1rem;
+	outline: none;
+	background-color: var(--light-beige);
+	color: var(--dark-grey);
+}
+
+.modalEscBtn {
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+}
+
+.modal-submitbutton {
+	width: 100%;
+	background-color: var(--red-orange);
+	color: var(--text-beige);
+	border-style: none;
+	padding: 1rem;
+	border-radius: 7px;
+	box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+}
