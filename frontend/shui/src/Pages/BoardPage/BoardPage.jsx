@@ -1,52 +1,60 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './BoardPage.css';
 import Card from '../../Components/Card/Card.jsx';
 import Button from '../../Components/Button/Button.jsx';
 import { FaPen } from 'react-icons/fa';
 import { UseFetch } from '../../Hooks/UseFetch.js';
 import NewMessage from '../../Components/NewMessage/NewMessage.jsx';
+import Message from '../../Components/Message/Message.jsx';
 import axios from 'axios';
 
 function BoardPage() {
-	const { messages, isLoading, isError } = UseFetch();
+	const { messages: fethedMessages, isLoading, isError } = UseFetch();
+	const [messages, setMessages] = useState([]);
 	const [isOpen, setIsOpen] = useState(false);
+	// const [isMessageOpen, setIsMessageOpen] = useState(false);
+	const [selectedMessage, setSelectedMessage] = useState(null);
 
-	//om den laddar
+	//uppdatera när de kommer ett nytt meddelande
+	useEffect(() => {
+		if (fethedMessages) {
+			setMessages(fethedMessages);
+		}
+	}, [fethedMessages]);
+
+	//Sortera meddelandena för att få de senaste först
+	const sortedMessages = messages.sort(
+		(a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+	);
+
+	//hanterar när man klickar på ett meddelande
+	const handleCardClick = (id) => {
+		const message = sortedMessages.find((m) => m.id === id);
+		setSelectedMessage(message);
+	};
+
+	//hanterar och updaterar messages när de kommer nytt
+	const handleUpdateMessages = (id, updatedData) => {
+		setMessages((prev) =>
+			prev.map((msg) => (msg.id === id ? { ...msg, ...updatedData } : msg))
+		);
+	};
+
+	//om useFetch laddar
 	if (isLoading)
 		return (
 			<section className="page">
 				<p>Loading...</p>
 			</section>
 		);
-	//om de blir fel
+	//om useFetch blir fel
 	if (isError)
 		return (
 			<section className="page">
 				s<p>Error!</p>
 			</section>
 		);
-
-	//post anrop för att posta nya meddelanden som skickas till newMessage
-	const handlesubmit = (data) => {
-		axios
-			.post(
-				'https://258pt6fzhf.execute-api.eu-north-1.amazonaws.com/message',
-				data
-			)
-			.then((response) => {
-				console.log(response.data);
-				window.location.reload();
-			})
-			.catch((error) => {
-				console.log('Error:', error);
-			});
-	};
-
-	//Sortera meddelandena för att få de senaste först
-	const sortedMessages = messages.sort(
-		(a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-	);
 
 	return (
 		<div className="boardPage">
@@ -57,9 +65,11 @@ function BoardPage() {
 						date={message.createdAt}
 						username={message.username}
 						text={message.text}
+						onClick={() => handleCardClick(message.id)}
 					/>
 				))}
 			</section>
+
 			{!isOpen && (
 				<Button
 					className="boardPage-button"
@@ -67,9 +77,14 @@ function BoardPage() {
 					btnText={<FaPen />}
 				/>
 			)}
+			{isOpen && <NewMessage onClose={() => setIsOpen(false)} />}
 
-			{isOpen && (
-				<NewMessage onClose={() => setIsOpen(false)} onSubmit={handlesubmit} />
+			{selectedMessage && (
+				<Message
+					message={selectedMessage}
+					onClose={() => setSelectedMessage(null)}
+					onUpdate={handleUpdateMessages}
+				/>
 			)}
 		</div>
 	);
