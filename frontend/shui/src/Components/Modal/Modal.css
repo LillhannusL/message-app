@@ -1,0 +1,27 @@
+.modal_overlay {
+	width: 100%;
+	position: fixed;
+	inset: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 20;
+}
+
+.modal_content {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 90%;
+	height: 90%;
+	background-color: rgba(47, 46, 45, 0.9);
+	border-radius: 10px;
+	position: relative;
+}
+
+.modal_EscBtn {
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+}

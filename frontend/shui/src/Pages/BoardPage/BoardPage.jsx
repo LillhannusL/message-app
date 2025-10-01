@@ -36,6 +36,7 @@ function BoardPage() {
 			)
 			.then((response) => {
 				console.log(response.data);
+				window.location.reload();
 			})
 			.catch((error) => {
 				console.log('Error:', error);
@@ -59,11 +60,13 @@ function BoardPage() {
 					/>
 				))}
 			</section>
-			<Button
-				className="boardPage-button"
-				btnOnClick={() => setIsOpen(true)}
-				btnText={<FaPen />}
-			/>
+			{!isOpen && (
+				<Button
+					className="boardPage-button"
+					btnOnClick={() => setIsOpen(true)}
+					btnText={<FaPen />}
+				/>
+			)}
 
 			{isOpen && (
 				<NewMessage onClose={() => setIsOpen(false)} onSubmit={handlesubmit} />
