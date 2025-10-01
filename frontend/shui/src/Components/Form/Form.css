@@ -3,11 +3,11 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	gap: 1rem;
+	gap: 1rem 4rem;
 }
 
 .form-input {
-	width: 100%;
+	width: 70vw;
 	height: 200px;
 	border: 2px solid var(--red-orange);
 	border-radius: 7px;
@@ -20,6 +20,7 @@
 }
 
 .form-username {
+	width: 70vw;
 	border: 2px solid var(--red-orange);
 	border-radius: 7px;
 	padding: 0.5rem;
