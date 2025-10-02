@@ -1,5 +1,4 @@
 .updateForm {
-	background-color: var(--light-beige);
 	width: 80%;
 	height: 60%;
 	display: flex;
@@ -7,9 +6,6 @@
 	justify-content: center;
 	align-items: center;
 	gap: 1rem;
-	border: 2px solid var(--red-orange);
-	margin: 1rem;
-	border-radius: 7px;
 }
 
 .updateForm-input {

@@ -1,6 +1,6 @@
 import React from 'react';
-import Modal from '../Modal/Modal';
-import Form from '../Form/Form';
+import Modal from '../../UI/Modal/Modal';
+import Form from '../../UI/Form/Form.jsx';
 import axios from 'axios';
 
 function NewMessage({ onClose }) {

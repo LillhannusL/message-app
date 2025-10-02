@@ -38,6 +38,12 @@ functions:
       - httpApi:
           path: /messages
           method: get
+  getMessagesbyUsername:
+    handler: functions/getMessagesbyUsername/index.handler
+    events:
+      - httpApi:
+          path: /messages/{username}
+          method: get
 
 resources:
   Resources:
@@ -50,11 +56,22 @@ resources:
             AttributeType: S # S står för String som i datatyp
           - AttributeName: sk
             AttributeType: S # S står för String som i datatyp
+          - AttributeName: username
+            AttributeType: S
         KeySchema:
           - AttributeName: pk
             KeyType: HASH # HASH = Partition key
           - AttributeName: sk
             KeyType: RANGE # RANGE = Sort Key
+        GlobalSecondaryIndexes:
+          - IndexName: usernameIndex
+            KeySchema:
+              - AttributeName: username
+                KeyType: HASH
+              - AttributeName: pk
+                KeyType: RANGE
+            Projection:
+              ProjectionType: ALL
         BillingMode: PAY_PER_REQUEST
     ShuiMessagesBucket:
       Type: AWS::S3::Bucket

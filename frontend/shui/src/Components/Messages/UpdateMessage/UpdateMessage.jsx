@@ -2,8 +2,8 @@ import React from 'react';
 import { useState } from 'react';
 import axios from 'axios';
 import './UpdateMessage.css';
-import Modal from '../Modal/Modal';
-import Button from '../Button/Button';
+import Modal from '../../UI/Modal/Modal';
+import Button from '../../UI/Button/Button';
 
 function UpdateMessage({ message, onClose, onUpdate }) {
 	const [text, setText] = useState(message.text);
@@ -20,7 +20,6 @@ function UpdateMessage({ message, onClose, onUpdate }) {
 			.then((response) => {
 				console.log(response.data);
 				onUpdate(message.id, data);
-				onClose();
 			})
 			.catch((error) => {
 				console.log('Error:', error);
@@ -30,12 +29,16 @@ function UpdateMessage({ message, onClose, onUpdate }) {
 	//hanterar vad som händer vid en submit
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		onSubmit({
-			text: text || message.text,
-			username: username || message.username,
-			id,
-		});
-		onClose();
+		try {
+			onSubmit({
+				text: text || message.text,
+				username: username || message.username,
+				id,
+			});
+			onClose();
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	return (
