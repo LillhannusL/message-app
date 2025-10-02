@@ -3,23 +3,30 @@ import './Form.css';
 import Button from '../Button/Button.jsx';
 import { useState } from 'react';
 
-function Form({ onSubmit, onClose }) {
-	const [text, setText] = useState('');
+function Form({ onSubmit, onClose, text, setText, error }) {
+	const [localError, setLocalError] = useState(false);
 	const [username, setUsername] = useState('');
 
 	//hanterar när man trycker på publicer knappen
-	const handleSubmit = (e) => {
+	async function handleSubmit(e) {
 		e.preventDefault();
-		onSubmit({ username, text });
-		onClose();
-	};
+		try {
+			await onSubmit({ username, text });
+			onClose();
+		} catch (err) {
+			setLocalError(true);
+		}
+	}
 
 	return (
 		<form onSubmit={handleSubmit} className="form">
 			<textarea
 				value={text}
 				className="form-input"
-				onChange={(e) => setText(e.target.value)}
+				onChange={(e) => {
+					setText(e.target.value);
+					if (localError) setLocalError(false);
+				}}
 				placeholder="Skriv något..."
 			/>
 			<input

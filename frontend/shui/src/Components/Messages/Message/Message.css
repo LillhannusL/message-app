@@ -9,7 +9,7 @@
 }
 
 .message_content {
-	width: 60%;
+	width: 80%;
 	background-color: var(--light-beige);
 	border: 1px solid var(--red-orange);
 	border-radius: 7px;
@@ -31,21 +31,43 @@
 	height: 100px;
 }
 
-.message_username,
 .message_date {
 	text-align: center;
 	padding: 1rem;
 	width: 80%;
+	font-weight: 700;
 }
 
 .messageBtn {
-	width: 40%;
+	width: 60%;
 	font-family: 'Onest', sans-serif;
 }
 
+.messageBtn:hover {
+	cursor: pointer;
+	transform: scale(0.97);
+	box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);
+}
+
 @media (min-width: 560px) {
+	.message_content {
+		max-width: 800px;
+		padding: 2rem;
+	}
+
 	.message_title {
 		font-size: 2.5rem;
 		margin-top: 2rem;
+	}
+
+	.message_text {
+		font-size: 1.1rem;
+	}
+	.message_date {
+		white-space: nowrap;
+		font-size: 0.9rem;
+	}
+	.messageBtn {
+		font-size: 1.1rem;
 	}
 }

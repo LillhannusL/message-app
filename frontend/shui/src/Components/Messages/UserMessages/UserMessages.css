@@ -36,7 +36,10 @@
 	gap: 0.5rem;
 }
 
-/* Anpassa layout för större skärmar */
+.user_date {
+	font-weight: 600;
+}
+
 @media (min-width: 560px) {
 	.user {
 		max-width: 800px;

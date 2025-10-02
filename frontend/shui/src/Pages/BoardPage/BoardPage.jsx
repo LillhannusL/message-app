@@ -7,6 +7,7 @@ import { FaPen } from 'react-icons/fa';
 import { UseFetch } from '../../Hooks/UseFetch.js';
 import NewMessage from '../../Components/Messages/NewMessage/NewMessage.jsx';
 import Message from '../../Components/Messages/Message/Message.jsx';
+import UpdateMessage from '../../Components/Messages/UpdateMessage/UpdateMessage.jsx';
 import UserMessages from '../../Components/Messages/UserMessages/UserMessages.jsx';
 
 function BoardPage() {
@@ -22,8 +23,10 @@ function BoardPage() {
 	const [messages, setMessages] = useState([]);
 	const [isOpen, setIsOpen] = useState(false);
 	const [selectedMessage, setSelectedMessage] = useState(null);
+	const [selectedMessagetoUpdate, setselectedMessagetoUpdate] = useState(null);
 	const [selectedUsername, setSelectedUsername] = useState(null);
 	const [isUserModalOpen, setIsUserModalOpen] = useState(false);
+	const [inputUsername, setInputUsername] = useState('');
 
 	//hämtar en användares meddelanden
 	const { data: userMessages, isLoading: isUserLoading } = UseFetch(
@@ -32,7 +35,7 @@ function BoardPage() {
 			: null,
 		'messages'
 	);
-	//uppdatera när de kommer ett nytt meddelande
+	//Sätter meddelande när de har laddats från useFetch
 	useEffect(() => {
 		if (fetchedMessages) {
 			setMessages(fetchedMessages);
@@ -50,21 +53,49 @@ function BoardPage() {
 		setSelectedMessage(message);
 	};
 
-	//hanterar och updaterar messages när de kommer nytt
+	//Uppdaterar meddelande i state när det ändras
 	const handleUpdateMessages = (id, updatedData) => {
 		setMessages((prev) =>
 			prev.map((msg) => (msg.id === id ? { ...msg, ...updatedData } : msg))
 		);
 	};
 
-	//om useFetch laddar
+	//Öppnar UserMessages modal med vald användare
+	const fetchMessagesbyUsername = (username) => {
+		setSelectedUsername(username);
+		setIsUserModalOpen(true);
+	};
+
+	// Klick på "Ändra meddelande" från Message modal
+	const handleUpdateClick = (message) => {
+		setselectedMessagetoUpdate(message);
+		setSelectedMessage(null);
+	};
+
+	//Hanterar Enter i sökrutan
+	const handleSearchSubmit = (e) => {
+		e.preventDefault();
+		if (inputUsername.trim()) {
+			const exists = messages.some(
+				(msg) => msg.username === inputUsername.trim()
+			);
+
+			if (exists) {
+				setSelectedUsername(inputUsername.trim());
+				setIsUserModalOpen(true);
+			}
+			setInputUsername('');
+		}
+	};
+
+	//Loader state
 	if (isLoading)
 		return (
 			<section className="page">
 				<p>Loading...</p>
 			</section>
 		);
-	//om useFetch blir fel
+	//Error state
 	if (isError)
 		return (
 			<section className="page">
@@ -72,17 +103,24 @@ function BoardPage() {
 			</section>
 		);
 
-	//Sätter User och visar alla meddelande från den Usern
-	const fetchMessagesbyUsername = (username) => {
-		setSelectedUsername(username);
-		setIsUserModalOpen(true);
-	};
-
 	return (
 		<div className="boardPage">
 			<div className="line"></div>
 			<h1 className="boardPage_title">Shui Messages</h1>
 			<div className="line"></div>
+
+			{/*Sökfält */}
+			<form className="boardPage_search" onSubmit={handleSearchSubmit}>
+				<input
+					type="text"
+					placeholder="Skriv användarnamn..."
+					value={inputUsername}
+					onChange={(e) => setInputUsername(e.target.value)}
+					className="boardPage_search-input"
+				/>
+			</form>
+
+			{/*Renderar alla meddelanden */}
 			<section className="card-box">
 				{sortedMessages.map((msg) => (
 					<Card
@@ -96,6 +134,7 @@ function BoardPage() {
 				))}
 			</section>
 
+			{/*Modal för att visa meddelande för en User */}
 			{selectedUsername && userMessages && isUserModalOpen && (
 				<UserMessages
 					onClose={() => setIsUserModalOpen(false)}
@@ -105,19 +144,37 @@ function BoardPage() {
 				/>
 			)}
 
-			{!isOpen && (
-				<Button
-					className="boardPage-button"
-					btnOnClick={() => setIsOpen(true)}
-					btnText={<FaPen />}
-				/>
-			)}
+			{/*Nytt meddelande knapp. Visas bara om inga modaler är öppna */}
+			{!isOpen &&
+				!selectedMessage &&
+				!isUserModalOpen &&
+				!selectedMessagetoUpdate && (
+					<Button
+						className="boardPage-button"
+						aria-label="Skriv nytt meddelande"
+						btnOnClick={() => setIsOpen(true)}
+						btnText={<FaPen />}
+					/>
+				)}
+
+			{/*Modal för nytt meddelande */}
 			{isOpen && <NewMessage onClose={() => setIsOpen(false)} />}
 
+			{/*Modal för valt meddelande */}
 			{selectedMessage && (
 				<Message
 					message={selectedMessage}
 					onClose={() => setSelectedMessage(null)}
+					onUpdate={handleUpdateMessages}
+					onUpdateClick={handleUpdateClick}
+				/>
+			)}
+
+			{/*modal för att uppdatera meddelande */}
+			{selectedMessagetoUpdate && (
+				<UpdateMessage
+					message={selectedMessagetoUpdate}
+					onClose={() => setselectedMessagetoUpdate(null)}
 					onUpdate={handleUpdateMessages}
 				/>
 			)}
