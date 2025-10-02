@@ -1,6 +1,6 @@
 import React from 'react';
 import './Form.css';
-import Button from '../Button/Button';
+import Button from '../Button/Button.jsx';
 import { useState } from 'react';
 
 function Form({ onSubmit, onClose }) {

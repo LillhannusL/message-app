@@ -1,31 +1,35 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-export const UseFetch = () => {
-	const [messages, setMessages] = useState([]);
+export const UseFetch = (url, dataPath = 'result.Items') => {
+	const [data, setData] = useState([]);
 	const [isLoading, setIsLoading] = useState(null);
 	const [isError, setIsError] = useState(false);
 
 	useEffect(() => {
 		setIsLoading(true);
 		axios
-			.get('https://258pt6fzhf.execute-api.eu-north-1.amazonaws.com/messages')
+			.get(url)
 			.then((response) => {
-				const items = response.data.result.Items;
-				const cleanMessages = items.map((item) => ({
+				const pathParts = dataPath.split('.');
+				let items = response.data;
+				for (let part of pathParts) {
+					items = items?.[part];
+				}
+				const cleanData = (items || []).map((item) => ({
 					id: item.sk?.S,
 					username: item.username?.S,
 					text: item.text?.S,
 					createdAt: item.createdAt?.S,
 				}));
-				setMessages(cleanMessages);
+				setData(cleanData);
 			})
 			.catch((error) => {
 				console.log('Fetch error: ', error);
 				setIsError(true);
 			})
 			.finally(() => setIsLoading(false));
-	}, []);
+	}, [url, dataPath]);
 
-	return { messages, isLoading, isError };
+	return { data, isLoading, isError };
 };

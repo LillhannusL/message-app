@@ -2,8 +2,8 @@ import React from 'react';
 import './Message.css';
 import { useState } from 'react';
 import axios from 'axios';
-import Modal from '../Modal/Modal';
-import Button from '../Button/Button';
+import Modal from '../../UI/Modal/Modal.jsx';
+import Button from '../../UI/Button/Button';
 import UpdateMessage from '../UpdateMessage/UpdateMessage';
 
 function Message({ message, onClose, onUpdate }) {
@@ -15,25 +15,26 @@ function Message({ message, onClose, onUpdate }) {
 
 	const handleClick = () => {
 		setOpenUpdate(true);
+		console.log(message.id);
 	};
 
 	return (
 		<Modal onClose={onClose}>
 			{!openUpdate ? (
-				<>
-					<section className="message_content">
-						<p className="message_text">{message.text}</p>
-						<h5 className="message_username">{message.username}</h5>
+				<section className="message">
+					<h2 className="message_title">{message.username}</h2>
+					<div className="message_content">
 						<h6 className="message_date">
 							{shortDate} {shortTime}
 						</h6>
-					</section>
+						<p className="message_text">{message.text}</p>
+					</div>
 					<Button
 						btnOnClick={handleClick}
 						btnText={'Ändra meddelande'}
 						className="messageBtn"
 					/>
-				</>
+				</section>
 			) : (
 				<UpdateMessage
 					message={message}
