@@ -11,7 +11,7 @@ function UserMessages({
 	return (
 		<Modal onClose={onClose}>
 			<div className="user">
-				<h2 className="user_title">{selectedUsername}</h2>
+				<h1 className="user_title">{selectedUsername}</h1>
 				{isUserLoading ? (
 					<p>Loading...</p>
 				) : (
@@ -21,9 +21,9 @@ function UserMessages({
 							const shortTime = msg.createdAt.substring(11, 19);
 							return (
 								<li className="user_li" key={msg.id}>
-									<h6 className="user_date">
+									<p className="user_date">
 										{shortDate} {shortTime}
-									</h6>
+									</p>
 									<p className="user_text">{msg.text}</p>
 								</li>
 							);

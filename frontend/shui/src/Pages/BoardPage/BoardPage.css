@@ -23,6 +23,20 @@
 	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
 }
 
+.boardPage_search {
+	width: 90%;
+	display: flex;
+	justify-content: center;
+}
+
+.boardPage_search-input {
+	padding: 1rem;
+	border-radius: 7px;
+	border: 1px solid var(--red-orange);
+	background-color: var(--light-beige);
+	width: 90%;
+}
+
 .card-box {
 	width: 100%;
 	display: flex;

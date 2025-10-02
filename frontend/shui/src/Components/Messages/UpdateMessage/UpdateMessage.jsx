@@ -58,6 +58,7 @@ function UpdateMessage({ message, onClose, onUpdate }) {
 					placeholder={message.username}
 				/>
 				<Button
+					aria-label="Uppdatera meddelande"
 					className="updateForm-submitbutton"
 					type="submit"
 					btnText="Uppdatera"

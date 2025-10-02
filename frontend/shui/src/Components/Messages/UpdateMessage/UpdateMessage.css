@@ -10,6 +10,8 @@
 
 .updateForm-input {
 	font-family: 'Onest', sans-serif;
+	font-size: 1rem;
+	font-weight: 300;
 	background-color: var(--light-beige);
 	border: 1px solid var(--red-orange);
 	border-radius: 7px;
@@ -21,6 +23,8 @@
 
 .updateForm-username {
 	font-family: 'Onest', sans-serif;
+	font-size: 1rem;
+	font-weight: 300;
 	background-color: var(--light-beige);
 	border: 1px solid var(--red-orange);
 	border-radius: 7px;
@@ -30,5 +34,22 @@
 }
 
 .updateForm-submitbutton {
+	font-family: 'Onest', sans-serif;
+	font-size: 1rem;
+	font-weight: 300;
 	width: 80%;
+}
+
+.updateForm-submitbutton:hover {
+	cursor: pointer;
+	transform: scale(0.97);
+	box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);
+}
+
+@media (min-width: 560px) {
+	.updateForm-input,
+	.updateForm-usernam,
+	.updateForm-submitbutton {
+		font-size: 1.1rem;
+	}
 }

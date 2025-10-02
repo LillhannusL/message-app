@@ -35,6 +35,7 @@
 .card_username {
 	font-weight: 500;
 	color: var(--red-orange);
+	text-shadow: 1px 1px 4px black;
 	cursor: pointer;
 	transition: color 0.2s ease;
 }
