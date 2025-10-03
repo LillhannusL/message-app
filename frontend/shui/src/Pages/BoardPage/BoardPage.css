@@ -1,0 +1,72 @@
+.boardPage {
+	/* background-color: var(--light-beige); */
+	color: var(--dark-grey);
+	margin: 1rem;
+	padding: 1rem 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1rem;
+}
+
+.boardPage_title {
+	color: var(--dark-grey);
+	text-shadow: 2px 2px 3px var(--dark-grey);
+	font-size: 2rem;
+	font-weight: 300;
+}
+
+.line {
+	width: 80%;
+	height: 1px;
+	background: var(--dark-grey);
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+}
+
+.boardPage_search {
+	width: 90%;
+	display: flex;
+	justify-content: center;
+}
+
+.boardPage_search-input {
+	padding: 1rem;
+	border-radius: 7px;
+	border: 1px solid var(--red-orange);
+	background-color: var(--light-beige);
+	width: 90%;
+}
+
+.card-box {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
+}
+
+.boardPage-button {
+	position: fixed;
+	bottom: 1.6rem;
+	right: 1.6rem;
+	z-index: 10;
+}
+
+@media (min-width: 768px) {
+	.card-box {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+		grid-auto-rows: 300px;
+		justify-items: center;
+		align-items: start;
+	}
+
+	.card {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+}

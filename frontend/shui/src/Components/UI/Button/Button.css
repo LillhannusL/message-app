@@ -1,0 +1,16 @@
+.button {
+	background-color: var(--red-orange);
+	color: var(--text-beige);
+	border-style: none;
+	padding: 0.8rem;
+	border-radius: 10px;
+	box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+	font-family: 'Onest', sans-serif;
+	font-size: 1rem;
+}
+
+.button:hover {
+	cursor: pointer;
+	transform: scale(0.97);
+	box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);
+}

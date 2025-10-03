@@ -8,7 +8,9 @@ provider:
   runtime: nodejs20.x
   region: eu-north-1
   iam:
-    role:
+    role: arn:aws:iam::329327478854:role/serverless-aws-role
+  httpApi:
+    cors: true
 
 build:
   esbuild:
@@ -22,20 +24,26 @@ functions:
     handler: functions/postMessage/index.handler
     events:
       - httpApi:
-        path: /message
-        method: post
+          path: /message
+          method: post
   updateMessage:
     handler: functions/updateMessage/index.handler
     events:
       - httpApi:
-        path: /message/{id}
-        method: put
+          path: /message/{id}
+          method: put
   getMessages:
-    handler: functions/s/index.handler
+    handler: functions/getMessages/index.handler
     events:
       - httpApi:
-        path: /messages
-        method: get
+          path: /messages
+          method: get
+  getMessagesbyUsername:
+    handler: functions/getMessagesbyUsername/index.handler
+    events:
+      - httpApi:
+          path: /messages/{username}
+          method: get
 
 resources:
   Resources:
@@ -43,14 +51,47 @@ resources:
       Type: AWS::DynamoDB::Table
       Properties:
         TableName: ShuiDataTable
-        AttributeDefinions:
-        - AttributeName : pk
-          AttributeType: S # S står för String som i datatyp
-        - AttributeName : sk
-          AttributeType: S # S står för String som i datatyp
+        AttributeDefinitions:
+          - AttributeName: pk
+            AttributeType: S # S står för String som i datatyp
+          - AttributeName: sk
+            AttributeType: S # S står för String som i datatyp
+          - AttributeName: username
+            AttributeType: S
         KeySchema:
-        - AttributeName: pk
-          KeyType: HASH # HASH = Partition key
-        - AttributeName: sk
-          KeyType: RANGE # RANGE = Sort Key
+          - AttributeName: pk
+            KeyType: HASH # HASH = Partition key
+          - AttributeName: sk
+            KeyType: RANGE # RANGE = Sort Key
+        GlobalSecondaryIndexes:
+          - IndexName: usernameIndex
+            KeySchema:
+              - AttributeName: username
+                KeyType: HASH
+              - AttributeName: pk
+                KeyType: RANGE
+            Projection:
+              ProjectionType: ALL
         BillingMode: PAY_PER_REQUEST
+    ShuiMessagesBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: shuimessagebucket
+        CorsConfiguration:
+          CorsRules:
+            - AllowedMethods:
+                - PUT
+                - GET
+                - HEAD
+              AllowedOrigins:
+                - http://localhost:5174
+              AllowedHeaders:
+                - '*'
+        PublicAccessBlockConfiguration:
+          BlockPublicAcls: true
+          BlockPublicPolicy: true
+          IgnorePublicAcls: true
+          RestrictPublicBuckets: true
+        OwnershipControls:
+          Rules:
+            - ObjectOwnership: BucketOwnerEnforced

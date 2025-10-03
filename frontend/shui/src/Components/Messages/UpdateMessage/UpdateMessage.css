@@ -1,0 +1,55 @@
+.updateForm {
+	width: 80%;
+	height: 60%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
+}
+
+.updateForm-input {
+	font-family: 'Onest', sans-serif;
+	font-size: 1rem;
+	font-weight: 300;
+	background-color: var(--light-beige);
+	border: 1px solid var(--red-orange);
+	border-radius: 7px;
+	text-align: center;
+	padding: 1rem;
+	width: 80%;
+	height: 100px;
+}
+
+.updateForm-username {
+	font-family: 'Onest', sans-serif;
+	font-size: 1rem;
+	font-weight: 300;
+	background-color: var(--light-beige);
+	border: 1px solid var(--red-orange);
+	border-radius: 7px;
+	text-align: center;
+	padding: 1rem;
+	width: 80%;
+}
+
+.updateForm-submitbutton {
+	font-family: 'Onest', sans-serif;
+	font-size: 1rem;
+	font-weight: 300;
+	width: 80%;
+}
+
+.updateForm-submitbutton:hover {
+	cursor: pointer;
+	transform: scale(0.97);
+	box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);
+}
+
+@media (min-width: 560px) {
+	.updateForm-input,
+	.updateForm-usernam,
+	.updateForm-submitbutton {
+		font-size: 1.1rem;
+	}
+}
