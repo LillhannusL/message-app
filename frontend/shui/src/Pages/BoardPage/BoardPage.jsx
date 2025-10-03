@@ -9,6 +9,7 @@ import NewMessage from '../../Components/Messages/NewMessage/NewMessage.jsx';
 import Message from '../../Components/Messages/Message/Message.jsx';
 import UpdateMessage from '../../Components/Messages/UpdateMessage/UpdateMessage.jsx';
 import UserMessages from '../../Components/Messages/UserMessages/UserMessages.jsx';
+import Cirkles from '../../Components/UI/Cirkles/Cirkles.jsx';
 
 function BoardPage() {
 	//hämtar alla meddelanden
@@ -105,6 +106,7 @@ function BoardPage() {
 
 	return (
 		<div className="boardPage">
+			<Cirkles />
 			<div className="line"></div>
 			<h1 className="boardPage_title">Shui Messages</h1>
 			<div className="line"></div>
