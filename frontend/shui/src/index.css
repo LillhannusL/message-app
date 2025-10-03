@@ -15,7 +15,7 @@
 }
 
 body {
-	background-color: var(--light-beige);
+	/* background-color: var(--light-beige); */
 	color: var(--dark-grey);
 	font-family: 'Onest', sans-serif;
 }
